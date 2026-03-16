@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C+C Weekly Scoreboard — 16 March 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green:   #22c55e;
+    --amber:   #f59e0b;
+    --red:     #ef4444;
+    --blue:    #3b82f6;
+    --purple:  #a855f7;
+    --gold:    #fbbf24;
+    --orange:  #f97316;
+    --bg:      #0f0f13;
+    --surface: #18181f;
+    --surf2:   #1e1e28;
+    --surf3:   #22222c;
+    --border:  #2a2a38;
+    --text:    #f1f1f5;
+    --muted:   #6b6b80;
+    --accent:  #e2e8ff;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 32px 24px 80px;
+  }
+
+  /* ─── HEADER ─── */
+  .header { text-align: center; margin-bottom: 36px; }
+  .header .badge {
+    display: inline-block;
+    background: var(--surf3);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: clamp(24px, 5vw, 42px);
+    font-weight: 900; letter-spacing: -.02em;
+    background: linear-gradient(135deg, #fff 30%, #a0a8ff);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1.1; margin-bottom: 6px;
+  }
+  .header .sub { color: var(--muted); font-size: 13px; }
+
+  /* ─── STAT STRIP ─── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 700px) { .stats { grid-template-columns: repeat(3, 1fr); } }
+  .stat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px 12px; text-align: center;
+  }
+  .stat .val { font-size: 28px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+  .stat .lbl { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .stat.g .val { color: var(--green); }
+  .stat.a .val { color: var(--amber); }
+  .stat.r .val { color: var(--red); }
+  .stat.go .val { color: var(--gold); }
+
+  /* ─── SECTION LABEL ─── */
+  .sec-label {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 10px;
+  }
+  .sec-label::after { content:''; flex:1; height:1px; background: var(--border); }
+
+  /* ─── 3-COLUMN SCOREBOARD ─── */
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+    margin-bottom: 40px;
+    align-items: start;
+  }
+  @media (max-width: 860px) { .board { grid-template-columns: 1fr; } }
+
+  .col-wrap {}
+
+  .col-header {
+    border-radius: 14px 14px 0 0;
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid transparent;
+    border-bottom: none;
+  }
+  .col-header .ch-icon { font-size: 20px; }
+  .col-header .ch-title { font-size: 14px; font-weight: 800; }
+  .col-header .ch-count {
+    margin-left: auto;
+    font-size: 20px; font-weight: 900;
+    line-height: 1;
+  }
+
+  .col-header.green-h  { background: rgba(34,197,94,.1);  border-color: rgba(34,197,94,.25); }
+  .col-header.amber-h  { background: rgba(245,158,11,.1); border-color: rgba(245,158,11,.25); }
+  .col-header.red-h    { background: rgba(239,68,68,.1);  border-color: rgba(239,68,68,.25); }
+
+  .col-header.green-h .ch-title  { color: var(--green); }
+  .col-header.amber-h .ch-title  { color: var(--amber); }
+  .col-header.red-h   .ch-title  { color: var(--red); }
+  .col-header.green-h .ch-count  { color: var(--green); }
+  .col-header.amber-h .ch-count  { color: var(--amber); }
+  .col-header.red-h   .ch-count  { color: var(--red); }
+
+  .col-body {
+    border-radius: 0 0 14px 14px;
+    border: 1px solid var(--border);
+    border-top: none;
+    overflow: hidden;
+  }
+
+  .member-row {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .member-row:last-child { border-bottom: none; }
+
+  .mr-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+  .mr-commitment { font-size: 11px; color: var(--muted); font-style: italic; line-height: 1.4; margin-bottom: 8px; }
+
+  .pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pill {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 5px;
+    border: 1px solid var(--border); color: var(--muted);
+  }
+  .pill.hit    { border-color: rgba(34,197,94,.4);  color: var(--green); background: rgba(34,197,94,.08); }
+  .pill.miss   { border-color: rgba(239,68,68,.3);  color: #f87171;      background: rgba(239,68,68,.07); }
+  .pill.noset  { border-color: rgba(245,158,11,.3); color: var(--amber);  background: rgba(245,158,11,.07); }
+  .pill.streak { border-color: rgba(251,191,36,.4); color: var(--gold);   background: rgba(251,191,36,.08); }
+  .pill.lever  { border-color: rgba(168,85,247,.4); color: #c084fc;       background: rgba(168,85,247,.08); }
+  .pill.flag   { border-color: rgba(239,68,68,.4);  color: #f87171;       background: rgba(239,68,68,.08); }
+
+  /* glow on submitted rows with a streak */
+  .mr-star { background: linear-gradient(135deg, rgba(251,191,36,.07), rgba(251,191,36,.02)); }
+
+  /* left accent bar */
+  .member-row::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .col-body.green-b .member-row::before { background: rgba(34,197,94,.5); }
+  .col-body.amber-b .member-row::before { background: rgba(245,158,11,.5); }
+  .col-body.red-b   .member-row::before { background: rgba(239,68,68,.5); }
+
+  .empty-state {
+    padding: 28px 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .empty-state .big { font-size: 28px; margin-bottom: 6px; }
+
+  /* ─── WINS ─── */
+  .wins-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+  }
+  .win {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 13px 15px;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .win-em { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .win-n  { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+  .win-t  { font-size: 11px; color: var(--muted); line-height: 1.45; }
+
+  /* ─── MESSAGE QUEUE ─── */
+  .queue {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+  }
+  .q-top {
+    padding: 18px 22px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .q-top h3 { font-size: 15px; font-weight: 800; }
+  .q-top .q-count {
+    margin-left: auto;
+    background: var(--surf3); color: var(--muted);
+    font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 100px;
+    border: 1px solid var(--border);
+  }
+  .prog-wrap { padding: 10px 22px 14px; }
+  .prog-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+  .prog-bar { height: 4px; background: var(--border); border-radius: 100px; overflow: hidden; }
+  .prog-fill { height: 100%; background: linear-gradient(90deg, var(--green), #86efac); border-radius: 100px; transition: width .3s; }
+
+  .q-tier { border-bottom: 1px solid var(--border); }
+  .q-tier:last-child { border-bottom: none; }
+  .q-tier-lbl {
+    font-size: 10px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted);
+    padding: 10px 22px 4px;
+  }
+  .q-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 11px 22px; cursor: pointer; transition: background .1s;
+  }
+  .q-item:hover { background: var(--surf3); }
+  .q-item.done { opacity: .4; }
+  .q-item.done .q-name { text-decoration: line-through; }
+
+  .q-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .dg { background: var(--green); }
+  .da { background: var(--amber); }
+  .do { background: var(--orange); }
+  .db { background: var(--blue); }
+  .dp { background: var(--purple); }
+
+  .q-box {
+    width: 18px; height: 18px; border-radius: 5px;
+    border: 2px solid var(--border); flex-shrink: 0; margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+  }
+  .q-item.done .q-box { background: var(--green); border-color: var(--green); }
+  .q-tick { display: none; color: #000; font-size: 11px; font-weight: 900; }
+  .q-item.done .q-tick { display: block; }
+
+  .q-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .q-msg  { font-size: 11px; color: var(--muted); line-height: 1.5; font-style: italic; }
+
+  /* ─── FOOTER ─── */
+  footer { text-align: center; margin-top: 48px; color: var(--muted); font-size: 11px; letter-spacing: .05em; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="badge">Week of 9 March 2026 &nbsp;·&nbsp; Matt's Command Centre</div>
+  <h1>C+C Weekly Scoreboard</h1>
+  <p class="sub">Brotherhood × Business &nbsp;·&nbsp; Commitment & Consequence &nbsp;·&nbsp; Generated 16 March 2026</p>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat g">  <div class="val">7</div>  <div class="lbl">Submitted</div>  </div>
+  <div class="stat a">  <div class="val">3</div>  <div class="lbl">Missed</div>     </div>
+  <div class="stat r">  <div class="val">0</div>  <div class="lbl">Flagged 1:1</div></div>
+  <div class="stat go"> <div class="val">1</div>  <div class="lbl">Hit Commitment</div></div>
+  <div class="stat" style="background:var(--surface);">
+    <div class="val" style="color:#a0a8ff; font-size:18px; padding-top:5px;">Alex & Mitch</div>
+    <div class="lbl">2-Week Streak 🔥</div>
+  </div>
+</div>
+
+<!-- 3-COLUMN SCOREBOARD -->
+<div class="sec-label" style="margin-top:8px;">📋 Weekly Submission Status</div>
+<div class="board">
+
+  <!-- COL 1 – SUBMITTED -->
+  <div class="col-wrap">
+    <div class="col-header green-h">
+      <span class="ch-icon">✅</span>
+      <span class="ch-title">Submitted</span>
+      <span class="ch-count">7</span>
+    </div>
+    <div class="col-body green-b">
+
+      <div class="member-row mr-star">
+        <div class="mr-name">🔥 Alex Feldman</div>
+        <div class="mr-commitment">"Sort out his taxes"</div>
+        <div class="pills">
+          <span class="pill miss">❌ Didn't hit</span>
+          <span class="pill streak">2-wk streak</span>
+          <span class="pill lever">🤝 leverage</span>
+        </div>
+      </div>
+
+      <div class="member-row mr-star">
+        <div class="mr-name">⭐ Mitch O'C</div>
+        <div class="mr-commitment">"2 Peptide posts"</div>
+        <div class="pills">
+          <span class="pill hit">✅ Hit it!</span>
+          <span class="pill streak">2-wk streak</span>
+        </div>
+      </div>
+
+      <div class="member-row">
+        <div class="mr-name">Paul Hennessy</div>
+        <div class="mr-commitment">"5 offers + 5 case studies"</div>
+        <div class="pills">
+          <span class="pill miss">❌ Didn't hit</span>
+        </div>
+      </div>
+
+      <div class="member-row">
+        <div class="mr-name">Cosmo</div>
+        <div class="mr-commitment">"Send 100 outreach messages"</div>
+        <div class="pills">
+          <span class="pill noset">➖ No commit last week</span>
+        </div>
+      </div>
+
+      <div class="member-row">
+        <div class="mr-name">Jordan Bearden</div>
+        <div class="mr-commitment">"Finish 2nd final"</div>
+        <div class="pills">
+          <span class="pill miss">❌ Didn't hit</span>
+          <span class="pill lever">🤝 leverage</span>
+        </div>
+      </div>
+
+      <div class="member-row">
+        <div class="mr-name">Miguel Alvarez Lesmes</div>
+        <div class="mr-commitment">"Publish 1 piece of content"</div>
+        <div class="pills">
+          <span class="pill noset">➖ No commit last week</span>
+        </div>
+      </div>
+
+      <div class="member-row">
+        <div class="mr-name">Koen Geytenbeek</div>
+        <div class="mr-commitment">"Finish proposal to client"</div>
+        <div class="pills">
+          <span class="pill noset">➖ No commit last week</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COL 2 – MISSED -->
+  <div class="col-wrap">
+    <div class="col-header amber-h">
+      <span class="ch-icon">⚠️</span>
+      <span class="ch-title">Missed This Week</span>
+      <span class="ch-count">3</span>
+    </div>
+    <div class="col-body amber-b">
+
+      <div class="member-row">
+        <div class="mr-name">Gerhard Pappert</div>
+        <div class="mr-commitment">Last submitted: Week of 2 Mar</div>
+        <div class="pills">
+          <span class="pill noset">1 week missed</span>
+        </div>
+      </div>
+
+      <div class="member-row">
+        <div class="mr-name">Matthew Kaos</div>
+        <div class="mr-commitment">Last submitted: Week of 2 Mar</div>
+        <div class="pills">
+          <span class="pill noset">1 week missed</span>
+        </div>
+      </div>
+
+      <div class="member-row">
+        <div class="mr-name">Oli Middleton</div>
+        <div class="mr-commitment">Last submitted: Week of 2 Mar</div>
+        <div class="pills">
+          <span class="pill noset">1 week missed</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COL 3 – FLAGGED FOR 1:1 (2+ weeks) -->
+  <div class="col-wrap">
+    <div class="col-header red-h">
+      <span class="ch-icon">🔴</span>
+      <span class="ch-title">Flagged — 1:1 Needed</span>
+      <span class="ch-count">0</span>
+    </div>
+    <div class="col-body red-b">
+      <div class="empty-state">
+        <div class="big">🎉</div>
+        No one flagged this week.<br>
+        If Gerhard, Matthew or Oli<br>miss again next week — they move here.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- WINS -->
+<div class="sec-label">🏆 Wins Round-Up — Week of 9 March</div>
+<div class="wins-grid">
+  <div class="win"><div class="win-em">🔥</div><div><div class="win-n">Alex Feldman</div><div class="win-t">Launched the next cohort of MOMENTUM GANG</div></div></div>
+  <div class="win"><div class="win-em">💼</div><div><div class="win-n">Paul Hennessy</div><div class="win-t">Locked in a workshop</div></div></div>
+  <div class="win"><div class="win-em">🤝</div><div><div class="win-n">Cosmo</div><div class="win-t">Met with the team in person</div></div></div>
+  <div class="win"><div class="win-em">📚</div><div><div class="win-n">Jordan Bearden</div><div class="win-t">Finished 3 lesson reviews</div></div></div>
+  <div class="win"><div class="win-em">⚡</div><div><div class="win-n">Mitch O'C</div><div class="win-t">Pulled the trigger before making everything perfect</div></div></div>
+  <div class="win"><div class="win-em">📱</div><div><div class="win-n">Miguel Alvarez Lesmes</div><div class="win-t">Created 5 short-form pieces of content</div></div></div>
+  <div class="win"><div class="win-em">🌴</div><div><div class="win-n">Koen Geytenbeek</div><div class="win-t">Delegated & actually relaxed on holiday — assistant ran the business</div></div></div>
+  <div class="win"><div class="win-em">❤️</div><div><div class="win-n">Mitch O'C</div><div class="win-t">Figured out where he went wrong in his relationship — committed to fixing it</div></div></div>
+  <div class="win"><div class="win-em">🏠</div><div><div class="win-n">Miguel Alvarez Lesmes</div><div class="win-t">Moved into new home with girlfriend in Lisbon — new chapter</div></div></div>
+  <div class="win"><div class="win-em">🧘</div><div><div class="win-n">Jordan Bearden</div><div class="win-t">Completed a 60-hour dry fast</div></div></div>
+  <div class="win"><div class="win-em">🏃</div><div><div class="win-n">Paul Hennessy</div><div class="win-t">6 straight days of training + 15km run</div></div></div>
+  <div class="win"><div class="win-em">🌏</div><div><div class="win-n">Koen Geytenbeek</div><div class="win-t">Quality time with cousin in Japan</div></div></div>
+</div>
+
+<!-- MESSAGE QUEUE -->
+<div class="sec-label" style="margin-top:40px;">💬 Matt's Message Queue</div>
+<div class="queue">
+  <div class="q-top">
+    <h3>Messages to Send This Week</h3>
+    <div class="q-count" id="q-count">0 / 14 done</div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-row"><span>Progress</span><span id="q-pct">0%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="q-bar" style="width:0%"></div></div>
+  </div>
+
+  <div class="q-tier">
+    <div class="q-tier-lbl">🟢 Celebrate — Big wins & commitment hit (do these first)</div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot dg"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Mitch O'C — Hit his commitment ✅</div>
+      <div class="q-msg">"Man, this is it — you completed the commitment AND had the real insight. That's what BXB is about. Proud of you."</div></div>
+    </div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot dg"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Alex Feldman — MOMENTUM GANG launch 🔥</div>
+      <div class="q-msg">Group shoutout: "Alex just launched his next cohort — this is what building looks like. Big."</div></div>
+    </div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot dg"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Miguel Alvarez Lesmes — New home in Lisbon 🏠</div>
+      <div class="q-msg">"Moving into your new home with your girlfriend — that's not just logistics, that's a whole new chapter. Big move, brother."</div></div>
+    </div>
+  </div>
+
+  <div class="q-tier">
+    <div class="q-tier-lbl">🟡 Accountability — Submitted but missed last commitment</div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot da"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Alex Feldman — Didn't hit taxes commitment</div>
+      <div class="q-msg">"Love the MOMENTUM GANG launch. Now — what stopped the taxes? What's the actual plan this week?"</div></div>
+    </div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot da"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Paul Hennessy — Didn't hit his commitment</div>
+      <div class="q-msg">"Workshop locked in is real. The 5 offers — what got in the way? What does this week look like?"</div></div>
+    </div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot da"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Jordan Bearden — Didn't hit his commitment</div>
+      <div class="q-msg">"60-hour dry fast is hard, man — respect. What's blocking you on the 2nd final? Let's figure it out."</div></div>
+    </div>
+  </div>
+
+  <div class="q-tier">
+    <div class="q-tier-lbl">🟠 Pattern Flag — No commitment set</div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot do"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Cosmo — No commitment set again</div>
+      <div class="q-msg">"Cosmo — no commitment again this week. That's the whole system, brother. Set one now, even if it's small."</div></div>
+    </div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot do"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Koen Geytenbeek — No commitment set again</div>
+      <div class="q-msg">"Hey Koen — no commitment set again. The holiday makes sense but the form is where it starts. What's your one thing this week?"</div></div>
+    </div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot do"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Miguel Alvarez Lesmes — No commitment set again</div>
+      <div class="q-msg">"The move is done, brother. Big moment. Now — what's your proper commitment this week? Get it in the form."</div></div>
+    </div>
+  </div>
+
+  <div class="q-tier">
+    <div class="q-tier-lbl">👀 Monitoring — Missed last week (nudge Thursday if still nothing)</div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot db"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Gerhard Pappert — Check Thursday</div>
+      <div class="q-msg">If no submission by Thurs EOD: "Hey Gerhard — missed you in the C+C this week, everything good?"</div></div>
+    </div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot db"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Matthew Kaos — Check Thursday</div>
+      <div class="q-msg">If no submission by Thurs EOD — same nudge as above.</div></div>
+    </div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot db"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Oli Middleton — Check Thursday</div>
+      <div class="q-msg">If no submission by Thurs EOD — same nudge as above.</div></div>
+    </div>
+  </div>
+
+  <div class="q-tier">
+    <div class="q-tier-lbl">💙 Direct Support — Leverage requests</div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot dp"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Jordan Bearden — Personal reach out</div>
+      <div class="q-msg">"I see you asked for support this week. I'm here. What would make this week a real win for you?"</div></div>
+    </div>
+    <div class="q-item" onclick="toggle(this)">
+      <div class="q-dot dp"></div><div class="q-box"><span class="q-tick">✓</span></div>
+      <div><div class="q-name">Alex Feldman → Flag to Ryan</div>
+      <div class="q-msg">Accounting workshop idea: "Alex wants a Day 1 accounting session — worth building for the whole group?"</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Dashboard generated 16 March 2026 &nbsp;·&nbsp; Brotherhood × Business &nbsp;·&nbsp; C+C Accountability System
+</footer>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('done');
+    const all  = document.querySelectorAll('.q-item').length;
+    const done = document.querySelectorAll('.q-item.done').length;
+    const pct  = Math.round(done / all * 100);
+    document.getElementById('q-count').textContent = done + ' / ' + all + ' done';
+    document.getElementById('q-pct').textContent   = pct + '%';
+    document.getElementById('q-bar').style.width   = pct + '%';
+  }
+</script>
+
+</body>
+</html>
