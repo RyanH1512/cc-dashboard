@@ -10,17 +10,13 @@
   body { background: #0f0f13; color: #e8e8f0; font-family: 'Inter', sans-serif; min-height: 100vh; padding: 24px; }
   a { color: #3b82f6; text-decoration: none; }
   a:hover { text-decoration: underline; }
-
-  /* HEADER */
   .header { text-align: center; padding: 40px 20px 32px; }
   .header-logo { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #6b7280; margin-bottom: 12px; }
   .header h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
   .header h1 span { color: #00c896; }
   .header-sub { font-size: 14px; color: #6b7280; margin-top: 8px; }
-
-  /* STATS STRIP */
   .stats-strip { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin: 32px 0; }
-  .stat-tile { background: #1a1a24; border-radius: 12px; padding: 20px 24px; text-align: center; min-width: 140px; flex: 1; max-width: 180px; border: 1px solid #2a2a38; }
+  .stat-tile { background: #1a1a24; border-radius: 12px; padding: 20px 24px; text-align: center; min-width: 130px; flex: 1; max-width: 170px; border: 1px solid #2a2a38; }
   .stat-tile .val { font-size: 36px; font-weight: 800; line-height: 1; }
   .stat-tile .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #6b7280; margin-top: 6px; }
   .stat-tile.green .val { color: #00c896; }
@@ -28,37 +24,30 @@
   .stat-tile.red .val { color: #ef4444; }
   .stat-tile.blue .val { color: #3b82f6; }
   .stat-tile.gold .val { color: #fbbf24; }
-
-  /* POTW */
   .potw-banner { background: linear-gradient(135deg, #1a2a20 0%, #1a1a24 100%); border: 1px solid #00c896; border-radius: 16px; padding: 28px 32px; margin: 0 auto 32px; max-width: 900px; display: flex; align-items: center; gap: 20px; }
   .potw-badge { font-size: 48px; flex-shrink: 0; }
   .potw-info .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #00c896; margin-bottom: 4px; }
   .potw-info .name { font-size: 24px; font-weight: 700; }
   .potw-info .win { font-size: 15px; color: #9ca3af; margin-top: 4px; font-style: italic; }
-
-  /* SECTION HEADINGS */
   .section-head { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #6b7280; margin: 32px 0 16px; padding-left: 4px; }
-
-  /* 3-COL STATUS BOARD */
   .status-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
   @media (max-width: 700px) { .status-board { grid-template-columns: 1fr; } }
   .status-col { background: #1a1a24; border-radius: 12px; padding: 20px; border: 1px solid #2a2a38; }
   .status-col-head { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-  .status-col-head .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .dot-green { background: #00c896; }
   .dot-amber { background: #f59e0b; }
   .dot-red { background: #ef4444; }
-  .member-card { padding: 10px 0; border-bottom: 1px solid #2a2a38; }
+  .member-card { padding: 8px 0; border-bottom: 1px solid #2a2a38; }
   .member-card:last-child { border-bottom: none; }
-  .member-name { font-size: 14px; font-weight: 600; }
+  .member-name { font-size: 13px; font-weight: 600; }
   .member-win { font-size: 12px; color: #9ca3af; margin-top: 2px; line-height: 1.4; }
   .member-sub { font-size: 11px; color: #6b7280; margin-top: 2px; }
   .badge-potw { background: #00c896; color: #0f0f13; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-left: 6px; }
-  .badge-missed1 { background: #f59e0b; color: #0f0f13; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
-  .badge-missed2 { background: #ef4444; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
-
-  /* WINS GRID */
-  .wins-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 40px; }
+  .badge-1wk { background: #f59e0b; color: #0f0f13; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+  .badge-2wk { background: #ef4444; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+  .badge-na { background: #3b1a1a; color: #ef4444; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid #ef4444; }
+  .wins-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; margin-bottom: 40px; }
   .win-card { background: #1a1a24; border-radius: 12px; padding: 16px 18px; border: 1px solid #2a2a38; }
   .win-card.featured { border-color: #00c896; background: #111a17; }
   .win-card-name { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
@@ -66,164 +55,144 @@
   .win-type-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 20px; margin-bottom: 8px; }
   .tag-biz { background: #14291f; color: #00c896; border: 1px solid #00c896; }
   .tag-personal { background: #1a1f3a; color: #3b82f6; border: 1px solid #3b82f6; }
-
-  /* MESSAGE QUEUE */
   .queue { background: #1a1a24; border-radius: 12px; padding: 24px; border: 1px solid #2a2a38; margin-bottom: 24px; }
   .queue-tier { margin-bottom: 20px; }
   .queue-tier:last-child { margin-bottom: 0; }
   .tier-head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #2a2a38; }
-  .tier1 .tier-head { color: #00c896; }
-  .tier2 .tier-head { color: #3b82f6; }
-  .tier3 .tier-head { color: #f59e0b; }
-  .tier4 .tier-head { color: #a78bfa; }
-  .tier5 .tier-head { color: #6b7280; }
-  .queue-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 13px; color: #d1d5db; }
+  .t1 .tier-head { color: #00c896; }
+  .t2 .tier-head { color: #3b82f6; }
+  .t3 .tier-head { color: #f59e0b; }
+  .t4 .tier-head { color: #a78bfa; }
+  .t5 .tier-head { color: #6b7280; }
+  .t6 .tier-head { color: #ef4444; }
+  .queue-item { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0; font-size: 13px; color: #d1d5db; }
   .queue-item input[type=checkbox] { margin-top: 2px; accent-color: #00c896; width: 15px; height: 15px; cursor: pointer; flex-shrink: 0; }
   .queue-item label { cursor: pointer; line-height: 1.4; }
-
-  /* PROGRESS BAR */
   .progress-wrap { margin: 20px 0 8px; }
   .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: #6b7280; margin-bottom: 6px; }
   .progress-track { background: #2a2a38; border-radius: 99px; height: 8px; overflow: hidden; }
   .progress-fill { background: #00c896; height: 100%; border-radius: 99px; transition: width 0.3s ease; }
-
-  /* FOOTER */
+  .attn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-bottom: 32px; }
+  .attn-card { background: #1a0f0f; border: 1px solid #3a1a1a; border-radius: 10px; padding: 12px 14px; }
+  .attn-name { font-size: 13px; font-weight: 600; color: #e8e8f0; }
+  .attn-action { font-size: 11px; color: #ef4444; margin-top: 4px; }
   .footer { text-align: center; padding: 32px 20px; color: #4b5563; font-size: 12px; border-top: 1px solid #1a1a24; margin-top: 40px; }
-  .footer a { color: #6b7280; }
   .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
   .footer-links a { color: #3b82f6; font-size: 13px; }
-
   .max-w { max-width: 1100px; margin: 0 auto; }
+  .alert-box { background: #1a0f0f; border: 1px solid #ef4444; border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; }
+  .alert-box p { font-size: 13px; color: #fca5a5; line-height: 1.6; }
+  .alert-box strong { color: #ef4444; }
 </style>
 </head>
 <body>
 <div class="max-w">
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-logo">Brotherhood × Business</div>
   <h1>C+C <span>Weekly Scoreboard</span></h1>
-  <div class="header-sub">Week of 17 March 2026 &nbsp;|&nbsp; W12 &nbsp;|&nbsp; Generated 24 Mar 2026</div>
+  <div class="header-sub">Week of 17 March 2026 &nbsp;|&nbsp; W12 &nbsp;|&nbsp; 24 Mar 2026 &nbsp;|&nbsp; Full 31-Member Roster</div>
 </div>
 
-<!-- STATS STRIP -->
 <div class="stats-strip">
   <div class="stat-tile green"><div class="val">12</div><div class="lbl">Submitted</div></div>
   <div class="stat-tile amber"><div class="val">3</div><div class="lbl">Missed</div></div>
-  <div class="stat-tile red"><div class="val">0</div><div class="lbl">Needs Attention</div></div>
-  <div class="stat-tile blue"><div class="val">15</div><div class="lbl">Total Members</div></div>
-  <div class="stat-tile gold"><div class="val">80%</div><div class="lbl">Submission Rate</div></div>
+  <div class="stat-tile red"><div class="val">16</div><div class="lbl">Needs Attention</div></div>
+  <div class="stat-tile blue"><div class="val">31</div><div class="lbl">Total Members</div></div>
+  <div class="stat-tile gold"><div class="val">39%</div><div class="lbl">Submit Rate</div></div>
 </div>
 
-<!-- PLAYER OF THE WEEK -->
+<div class="alert-box">
+  <p><strong>⚠️ Retention Alert:</strong> 16 members have no C+C check-in data in the past 3 weeks. These members need direct contact from Ryan or Ali. Cosmo and Paul Hennessy have also missed 2 consecutive weeks. Collective action required this week.</p>
+</div>
+
 <div class="potw-banner">
   <div class="potw-badge">🏆</div>
   <div class="potw-info">
     <div class="label">Player of the Week</div>
     <div class="name">Mitch O'Callaghan</div>
-    <div class="win">"3 peptide posts. First sales on new biz." — The new venture is officially off the ground. 🔥</div>
+    <div class="win">"3 peptide posts. First sales on new biz." — First sales is the hardest milestone. The new venture is live. 🔥</div>
   </div>
 </div>
 
-<!-- STATUS BOARD -->
-<div class="section-head">Member Status Board</div>
+<div class="section-head">Member Status Board — All 31 Members</div>
 <div class="status-board">
 
   <div class="status-col">
-    <div class="status-col-head"><div class="dot dot-green"></div> Submitted (12)</div>
-    <div class="member-card"><div class="member-name">Mitch O'Callaghan <span class="badge-potw">POTW</span></div><div class="member-win">First sales on new biz</div></div>
-    <div class="member-card"><div class="member-name">Lawrence Linker</div><div class="member-win">Joined Pagrin as co-founder</div></div>
+    <div class="status-col-head"><div class="dot dot-green"></div>Submitted (12)</div>
+    <div class="member-card"><div class="member-name">Mitch O'Callaghan <span class="badge-potw">POTW</span></div><div class="member-win">First sales on new biz 🔥</div></div>
+    <div class="member-card"><div class="member-name">Lawrence Linker</div><div class="member-win">Joined Pagrin as co-founder 🎯</div></div>
     <div class="member-card"><div class="member-name">Alex Feldman</div><div class="member-win">Built web app for MOMENTUM GANG</div></div>
-    <div class="member-card"><div class="member-name">Brian Sweeney</div><div class="member-win">Bali water sampling — amazing feedback</div></div>
-    <div class="member-card"><div class="member-name">Oli</div><div class="member-win">Killed first week of new gig</div></div>
-    <div class="member-card"><div class="member-name">Miguel Alvarez Lesmes</div><div class="member-win">Posted content ✅ commitment hit</div></div>
-    <div class="member-card"><div class="member-name">Matthew Kaos</div><div class="member-win">Launching BAM Offer</div></div>
+    <div class="member-card"><div class="member-name">Brian Sweeney</div><div class="member-win">Bali water biz — amazing feedback</div></div>
     <div class="member-card"><div class="member-name">Hayden Pribyl</div><div class="member-win">Ebook sales to strangers</div></div>
+    <div class="member-card"><div class="member-name">Oli</div><div class="member-win">Killed first week of new gig</div></div>
+    <div class="member-card"><div class="member-name">Matthew Kaos</div><div class="member-win">Launching BAM Offer</div></div>
+    <div class="member-card"><div class="member-name">Miguel Alvarez Lesmes</div><div class="member-win">Content commitment hit ✅</div></div>
+    <div class="member-card"><div class="member-name">Jack Graham</div><div class="member-win">Actions causing results</div></div>
     <div class="member-card"><div class="member-name">Koen Geytenbeek</div><div class="member-win">Cut energy-draining client</div></div>
     <div class="member-card"><div class="member-name">Chris Baugh</div><div class="member-win">Two strong client reviews</div></div>
-    <div class="member-card"><div class="member-name">Jack Graham</div><div class="member-win">Actions causing results</div></div>
     <div class="member-card"><div class="member-name">Jordan Bearden</div><div class="member-win">Finished AI course</div></div>
   </div>
 
   <div class="status-col">
-    <div class="status-col-head"><div class="dot dot-amber"></div> Missed (3)</div>
-    <div class="member-card"><div class="member-name">Dennis Gilfeather</div><div class="member-win"><span class="badge-missed1">1 week</span></div><div class="member-sub">Last seen: 16 Mar — monitor only</div></div>
-    <div class="member-card"><div class="member-name">Cosmo</div><div class="member-win"><span class="badge-missed2">2 weeks</span></div><div class="member-sub">Last seen: 9 Mar — WhatsApp needed</div></div>
-    <div class="member-card"><div class="member-name">Paul Hennessy</div><div class="member-win"><span class="badge-missed2">2 weeks</span></div><div class="member-sub">Last seen: 9 Mar — WhatsApp needed</div></div>
+    <div class="status-col-head"><div class="dot dot-amber"></div>Missed (3)</div>
+    <div class="member-card">
+      <div class="member-name">Dennis Gilfeather</div>
+      <div class="member-win"><span class="badge-1wk">1 week</span></div>
+      <div class="member-sub">Last: 16 Mar — monitor only</div>
+    </div>
+    <div class="member-card">
+      <div class="member-name">Cosmo</div>
+      <div class="member-win"><span class="badge-2wk">2 weeks</span></div>
+      <div class="member-sub">Last: 9 Mar — WhatsApp needed</div>
+    </div>
+    <div class="member-card">
+      <div class="member-name">Paul Hennessy</div>
+      <div class="member-win"><span class="badge-2wk">2 weeks</span></div>
+      <div class="member-sub">Last: 9 Mar — WhatsApp needed</div>
+    </div>
   </div>
 
   <div class="status-col">
-    <div class="status-col-head"><div class="dot dot-red"></div> Needs Attention (0)</div>
-    <div class="member-card" style="color:#4b5563; font-size:13px; padding-top:20px;">
-      ✅ No members require escalation this week. Great sign for retention.
-    </div>
+    <div class="status-col-head"><div class="dot dot-red"></div>Needs Attention (16)</div>
+    <div class="member-card"><div class="member-name">Michael Dorang</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Elijah Bagnall</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Danny MC</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Gareth Katea</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">James Kirk</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Alex Lehmann</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Andreas</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Lennart</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Stuart</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Karsten</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Dedy</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Aaron Binning</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Gehart</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Dan Lawson</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Oliver / Keenan Bettany</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
+    <div class="member-card"><div class="member-name">Keenan Bettany</div><div class="member-sub"><span class="badge-na">3+ wks</span> → Ryan/Ali</div></div>
   </div>
 
 </div>
 
-<!-- WINS GRID -->
 <div class="section-head">💰 Business/Wealth Wins — W12</div>
 <div class="wins-grid">
   <div class="win-card featured">
     <div class="win-type-tag tag-biz">💰 Business</div>
     <div class="win-card-name">🏆 Mitch O'Callaghan</div>
-    <div class="win-card-detail">3 peptide posts. First sales on new biz. The venture is live.</div>
+    <div class="win-card-detail">3 peptide posts. First sales on new biz. The venture is officially live.</div>
   </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Lawrence Linker</div>
-    <div class="win-card-detail">Announced joining Pagrin as co-founder 🎯</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Alex Feldman</div>
-    <div class="win-card-detail">Built a web app tool for MOMENTUM GANG</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Brian Sweeney</div>
-    <div class="win-card-detail">Water samples distributed to Bali long-termers — amazing feedback rolling in</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Oli</div>
-    <div class="win-card-detail">Killed the first week of the new gig!</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Matthew Kaos</div>
-    <div class="win-card-detail">Launching personal BAM Offer — Google form + offer document in progress</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Hayden Pribyl</div>
-    <div class="win-card-detail">Ebook sales to strangers — validation unlocked</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Miguel Alvarez Lesmes</div>
-    <div class="win-card-detail">Posted a lot of content — commitment completed ✅</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Koen Geytenbeek</div>
-    <div class="win-card-detail">Quit collaboration with energy-draining client — protecting resource</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Chris Baugh</div>
-    <div class="win-card-detail">Delivered two strong client reviews despite tough week</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Jack Graham</div>
-    <div class="win-card-detail">Actions causing results — appointment booking momentum building</div>
-  </div>
-  <div class="win-card">
-    <div class="win-type-tag tag-biz">💰 Business</div>
-    <div class="win-card-name">Jordan Bearden</div>
-    <div class="win-card-detail">Finished an AI course — levelling up the toolkit</div>
-  </div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Lawrence Linker</div><div class="win-card-detail">Announced joining Pagrin as co-founder 🎯</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Alex Feldman</div><div class="win-card-detail">Built a web app tool for MOMENTUM GANG</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Brian Sweeney</div><div class="win-card-detail">Water samples distributed to Bali long-termers — amazing feedback rolling in</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Hayden Pribyl</div><div class="win-card-detail">Ebook sales to strangers — market validation unlocked</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Oli</div><div class="win-card-detail">Killed the first week of the new gig!</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Matthew Kaos</div><div class="win-card-detail">Launching personal BAM Offer</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Miguel Alvarez Lesmes</div><div class="win-card-detail">Posted a lot of content — commitment completed ✅</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Koen Geytenbeek</div><div class="win-card-detail">Quit energy-draining client collaboration — protecting resource</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Chris Baugh</div><div class="win-card-detail">Delivered two strong client reviews despite a tough week</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Jack Graham</div><div class="win-card-detail">Actions causing results — appointment booking momentum building</div></div>
+  <div class="win-card"><div class="win-type-tag tag-biz">💰 Business</div><div class="win-card-name">Jordan Bearden</div><div class="win-card-detail">Finished an AI course — levelling up the toolkit</div></div>
 </div>
 
 <div class="section-head">💪 Personal/Health Wins — W12</div>
@@ -235,75 +204,90 @@
   <div class="win-card"><div class="win-type-tag tag-personal">💪 Personal</div><div class="win-card-name">Brian Sweeney</div><div class="win-card-detail">Taking care of physical self — growing confidence and clarity</div></div>
   <div class="win-card"><div class="win-type-tag tag-personal">💪 Personal</div><div class="win-card-name">Miguel Alvarez Lesmes</div><div class="win-card-detail">Regular movement + Acro Yoga with girlfriend</div></div>
   <div class="win-card"><div class="win-type-tag tag-personal">💪 Personal</div><div class="win-card-name">Chris Baugh</div><div class="win-card-detail">Reached out to a therapist — massive step 🙏</div></div>
-  <div class="win-card"><div class="win-type-tag tag-personal">💪 Personal</div><div class="win-card-name">Koen Geytenbeek</div><div class="win-card-detail">Kept going to the gym despite hectic week</div></div>
+  <div class="win-card"><div class="win-type-tag tag-personal">💪 Personal</div><div class="win-card-name">Koen Geytenbeek</div><div class="win-card-detail">Kept going to the gym despite a hectic week</div></div>
   <div class="win-card"><div class="win-type-tag tag-personal">💪 Personal</div><div class="win-card-name">Mitch O'Callaghan</div><div class="win-card-detail">Got his own space earlier than planned</div></div>
   <div class="win-card"><div class="win-type-tag tag-personal">💪 Personal</div><div class="win-card-name">Lawrence Linker</div><div class="win-card-detail">Back in the gym and eating well</div></div>
   <div class="win-card"><div class="win-type-tag tag-personal">💪 Personal</div><div class="win-card-name">Alex Feldman</div><div class="win-card-detail">Cave adventure last weekend!</div></div>
   <div class="win-card"><div class="win-type-tag tag-personal">💪 Personal</div><div class="win-card-name">Jordan Bearden</div><div class="win-card-detail">Committed to new Journey</div></div>
 </div>
 
-<!-- MESSAGE QUEUE -->
 <div class="section-head">📋 Matt's Message Queue — W12</div>
 <div class="queue">
   <div class="progress-wrap">
-    <div class="progress-label"><span>Tasks completed</span><span id="progress-text">0 / 13</span></div>
+    <div class="progress-label"><span>Tasks completed</span><span id="progress-text">0 / 28</span></div>
     <div class="progress-track"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
   </div>
 
-  <div class="queue-tier tier1">
+  <div class="queue-tier t1">
     <div class="tier-head">🟢 Tier 1 — Auto Praise (Group Chat)</div>
-    <div class="queue-item"><input type="checkbox" id="t1a" onchange="updateProgress()"><label for="t1a">🏆 Shoutout Mitch O'Callaghan — Player of the Week. First sales on new biz.</label></div>
-    <div class="queue-item"><input type="checkbox" id="t1b" onchange="updateProgress()"><label for="t1b">🎯 Shoutout Lawrence Linker — Announced co-founder role at Pagrin</label></div>
-    <div class="queue-item"><input type="checkbox" id="t1c" onchange="updateProgress()"><label for="t1c">💧 Shoutout Brian Sweeney — Bali water biz getting amazing product feedback</label></div>
+    <div class="queue-item"><input type="checkbox" id="c1" onchange="upd()"><label for="c1">🏆 Shoutout Mitch O'Callaghan — POTW. First sales on new biz. The venture is LIVE.</label></div>
+    <div class="queue-item"><input type="checkbox" id="c2" onchange="upd()"><label for="c2">🎯 Shoutout Lawrence Linker — Co-founder at Pagrin announced</label></div>
+    <div class="queue-item"><input type="checkbox" id="c3" onchange="upd()"><label for="c3">💧 Shoutout Brian Sweeney — Bali water biz getting incredible feedback</label></div>
+    <div class="queue-item"><input type="checkbox" id="c4" onchange="upd()"><label for="c4">📚 Shoutout Hayden Pribyl — First ebook sales to strangers. Validation moment.</label></div>
+    <div class="queue-item"><input type="checkbox" id="c5" onchange="upd()"><label for="c5">💚 Shoutout Chris Baugh — Reached out to a therapist. That takes courage.</label></div>
   </div>
 
-  <div class="queue-tier tier2">
+  <div class="queue-tier t2">
     <div class="tier-head">🔵 Tier 2 — Personal Reply / Acknowledgement</div>
-    <div class="queue-item"><input type="checkbox" id="t2a" onchange="updateProgress()"><label for="t2a">Chris Baugh — Acknowledge courage reaching out to a therapist</label></div>
-    <div class="queue-item"><input type="checkbox" id="t2b" onchange="updateProgress()"><label for="t2b">Jordan Bearden — Send encouragement (requested support & focus)</label></div>
-    <div class="queue-item"><input type="checkbox" id="t2c" onchange="updateProgress()"><label for="t2c">Lawrence Linker — Quick check-in ping (requested)</label></div>
+    <div class="queue-item"><input type="checkbox" id="c6" onchange="upd()"><label for="c6">Jordan Bearden — Send encouragement. Support + focus requested.</label></div>
+    <div class="queue-item"><input type="checkbox" id="c7" onchange="upd()"><label for="c7">Lawrence Linker — Quick check-in ping (he asked for one)</label></div>
+    <div class="queue-item"><input type="checkbox" id="c8" onchange="upd()"><label for="c8">Jack Graham — Facilitate closer conversation with his 3 brothers</label></div>
   </div>
 
-  <div class="queue-tier tier3">
-    <div class="tier-head">🟡 Tier 3 — WhatsApp Follow-Up (2 weeks missed)</div>
-    <div class="queue-item"><input type="checkbox" id="t3a" onchange="updateProgress()"><label for="t3a">📱 Cosmo — Last seen 9 Mar. Friendly nudge, see what's going on</label></div>
-    <div class="queue-item"><input type="checkbox" id="t3b" onchange="updateProgress()"><label for="t3b">📱 Paul Hennessy — Last seen 9 Mar. Check in, keep him in the fold</label></div>
+  <div class="queue-tier t3">
+    <div class="tier-head">🟡 Tier 3 — WhatsApp Follow-Up (missed 2 weeks)</div>
+    <div class="queue-item"><input type="checkbox" id="c9" onchange="upd()"><label for="c9">📱 Cosmo — Last seen 9 Mar. Friendly check-in. "How are you going bro?"</label></div>
+    <div class="queue-item"><input type="checkbox" id="c10" onchange="upd()"><label for="c10">📱 Paul Hennessy — Last seen 9 Mar. Missed 2 weeks. Warm nudge.</label></div>
   </div>
 
-  <div class="queue-tier tier4">
+  <div class="queue-tier t4">
     <div class="tier-head">🟣 Tier 4 — LEVERAGE Actions</div>
-    <div class="queue-item"><input type="checkbox" id="t4a" onchange="updateProgress()"><label for="t4a">Alex Feldman — Wants "Dumbass Day 1 Business Basics" workshop. Flag to Ryan/Ali</label></div>
-    <div class="queue-item"><input type="checkbox" id="t4b" onchange="updateProgress()"><label for="t4b">Hayden Pribyl — Advice on cold approaching business owners. Facilitate group input?</label></div>
-    <div class="queue-item"><input type="checkbox" id="t4c" onchange="updateProgress()"><label for="t4c">Jack Graham — Wants closer conversation with 3 key brothers. Facilitate intro/thread</label></div>
+    <div class="queue-item"><input type="checkbox" id="c11" onchange="upd()"><label for="c11">Alex Feldman — Day 1 Business Basics for Coaches/Consultants workshop. Flag to Ryan/Ali.</label></div>
+    <div class="queue-item"><input type="checkbox" id="c12" onchange="upd()"><label for="c12">Hayden Pribyl — Cold approach strategy for business owners. Source group input?</label></div>
   </div>
 
-  <div class="queue-tier tier5">
-    <div class="tier-head">⚪ Tier 5 — Monitor (missed 1 week)</div>
-    <div class="queue-item"><input type="checkbox" id="t5a" onchange="updateProgress()"><label for="t5a">Dennis Gilfeather — Missed 1 week (last seen 16 Mar). Watch only, no action yet</label></div>
-    <div class="queue-item"><input type="checkbox" id="t5b" onchange="updateProgress()"><label for="t5b">✅ Needs Attention: NONE this week</label></div>
+  <div class="queue-tier t5">
+    <div class="tier-head">⚪ Tier 5 — Monitor Only</div>
+    <div class="queue-item"><input type="checkbox" id="c13" onchange="upd()"><label for="c13">Dennis Gilfeather — Missed 1 week (last 16 Mar). Watch only.</label></div>
+  </div>
+
+  <div class="queue-tier t6">
+    <div class="tier-head">🔴 Tier 6 — Needs Attention → Escalate to Ryan / Ali</div>
+    <div class="queue-item"><input type="checkbox" id="c14" onchange="upd()"><label for="c14">Michael Dorang — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c15" onchange="upd()"><label for="c15">Elijah Bagnall — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c16" onchange="upd()"><label for="c16">Danny MC — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c17" onchange="upd()"><label for="c17">Gareth Katea — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c18" onchange="upd()"><label for="c18">James Kirk — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c19" onchange="upd()"><label for="c19">Alex Lehmann — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c20" onchange="upd()"><label for="c20">Andreas — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c21" onchange="upd()"><label for="c21">Lennart — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c22" onchange="upd()"><label for="c22">Stuart — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c23" onchange="upd()"><label for="c23">Karsten — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c24" onchange="upd()"><label for="c24">Dedy — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c25" onchange="upd()"><label for="c25">Aaron Binning — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c26" onchange="upd()"><label for="c26">Gehart — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c27" onchange="upd()"><label for="c27">Dan Lawson — No check-in in 3+ weeks</label></div>
+    <div class="queue-item"><input type="checkbox" id="c28" onchange="upd()"><label for="c28">Oliver / Keenan Bettany — No check-in in 3+ weeks</label></div>
   </div>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   <div class="footer-links">
-    <a href="https://www.notion.so/32d84a88157e812b9721fe09d84f9f56" target="_blank">📊 Notion Dashboard</a>
+    <a href="https://www.notion.so/32e84a88157e81358bcfe6a9d5bbc918" target="_blank">📊 Notion Dashboard</a>
     <a href="https://docs.google.com/spreadsheets/d/1usTTBGAndRdWwmViNxO9kCRoyGoxIKpNV6RO05aIF_w/edit?gid=93850652" target="_blank">📋 Client Master Sheet</a>
     <a href="https://ryanh1512.github.io/cc-dashboard/" target="_blank">🌐 GitHub Pages Live</a>
   </div>
-  <div>Generated automatically by BXB Cowork · 24 March 2026 · Brotherhood × Business</div>
+  <div>Generated by BXB Cowork · 24 March 2026 · Full 31-Member Roster · Brotherhood × Business</div>
 </div>
 
 </div>
-
 <script>
-function updateProgress() {
-  const checks = document.querySelectorAll('.queue input[type=checkbox]');
-  const total = checks.length;
+function upd() {
+  const all = document.querySelectorAll('.queue input[type=checkbox]');
   let done = 0;
-  checks.forEach(c => { if (c.checked) done++; });
-  document.getElementById('progress-text').textContent = done + ' / ' + total;
-  document.getElementById('progress-bar').style.width = Math.round((done/total)*100) + '%';
+  all.forEach(c => { if(c.checked) done++; });
+  document.getElementById('progress-text').textContent = done + ' / ' + all.length;
+  document.getElementById('progress-bar').style.width = Math.round((done/all.length)*100) + '%';
 }
 </script>
 </body>
