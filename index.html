@@ -3,336 +3,303 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📊 C+C Scoreboard — Week of 14 April 2026</title>
+<title>BXB C+C Scoreboard — Week of 21 April 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #0f0f13; color: #e8e8f0; font-family: 'Inter', sans-serif; min-height: 100vh; padding: 24px; }
-  .container { max-width: 1100px; margin: 0 auto; }
-
-  /* Header */
-  .header { text-align: center; padding: 40px 0 32px; border-bottom: 1px solid #2a2a3a; margin-bottom: 32px; }
-  .header h1 { font-size: 28px; font-weight: 800; color: #e8e8f0; letter-spacing: -0.5px; }
-  .header p { color: #888; margin-top: 8px; font-size: 14px; }
-  .badge { display: inline-block; background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 20px; padding: 4px 14px; font-size: 12px; color: #888; margin-top: 10px; }
-
-  /* Stats Strip */
-  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 32px; }
-  .stat { background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 12px; padding: 18px 16px; text-align: center; }
-  .stat .num { font-size: 32px; font-weight: 800; }
-  .stat .label { font-size: 11px; color: #888; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .stat.green .num { color: #00c896; }
-  .stat.amber .num { color: #f59e0b; }
-  .stat.red .num { color: #ef4444; }
-  .stat.blue .num { color: #3b82f6; }
-  .stat.purple .num { color: #a855f7; }
-
-  /* POTW */
-  .potw { background: linear-gradient(135deg, #1a2a1a, #1a1a24); border: 1px solid #00c896; border-radius: 14px; padding: 24px; margin-bottom: 32px; display: flex; align-items: center; gap: 20px; }
-  .potw-trophy { font-size: 48px; }
-  .potw-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #00c896; font-weight: 600; }
-  .potw-name { font-size: 22px; font-weight: 800; margin: 4px 0; }
-  .potw-win { font-size: 14px; color: #aaa; font-style: italic; }
-
-  /* Section headers */
-  .section-header { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-  .section-header span { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
-  .section-header span.green { background: #00c896; }
-  .section-header span.amber { background: #f59e0b; }
-  .section-header span.red { background: #ef4444; }
-
-  /* Status Board */
-  .status-board { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 32px; }
-  .status-col { background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 12px; padding: 18px; }
-  .status-col.green-border { border-color: #00c89640; }
-  .status-col.amber-border { border-color: #f59e0b40; }
-  .status-col.red-border { border-color: #ef444440; }
-  .status-col h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; }
-  .status-col.green-border h3 { color: #00c896; }
-  .status-col.amber-border h3 { color: #f59e0b; }
-  .status-col.red-border h3 { color: #ef4444; }
-  .member-chip { padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-  .member-chip.submitted { background: #00c89615; color: #e8e8f0; }
-  .member-chip.missed { background: #f59e0b10; color: #e8e8f0; }
-  .member-chip.attention { background: #ef444415; color: #ef4444; }
-  .member-chip .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .member-chip.submitted .dot { background: #00c896; }
-  .member-chip.missed .dot { background: #f59e0b; }
-  .member-chip.attention .dot { background: #ef4444; }
-  .member-tag { font-size: 10px; color: #555; margin-left: auto; }
-
-  /* Wins Grid */
-  .wins-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
-  .win-card { background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 12px; padding: 16px; }
-  .win-card.featured { border-color: #00c896; background: linear-gradient(135deg, #0a1f0a, #1a1a24); }
-  .win-type { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
-  .win-type.biz { color: #00c896; }
-  .win-type.personal { color: #3b82f6; }
-  .win-member { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .win-text { font-size: 13px; color: #aaa; line-height: 1.5; }
-
-  /* Leverage */
-  .leverage-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
-  .leverage-table th { text-align: left; padding: 10px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: #888; border-bottom: 1px solid #2a2a3a; font-weight: 600; }
-  .leverage-table td { padding: 12px 14px; font-size: 13px; border-bottom: 1px solid #1e1e2e; vertical-align: top; }
-  .leverage-table tr:last-child td { border-bottom: none; }
-  .leverage-table td:first-child { font-weight: 600; width: 200px; }
-
-  /* Message Queue */
-  .message-queue { background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 12px; padding: 20px; margin-bottom: 32px; }
-  .message-queue h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 16px; }
-  .queue-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #1e1e2e; }
-  .queue-item:last-child { border-bottom: none; }
-  .queue-cb { width: 18px; height: 18px; border: 2px solid #3a3a4a; border-radius: 4px; flex-shrink: 0; cursor: pointer; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-  .queue-cb.checked { background: #00c896; border-color: #00c896; }
-  .queue-cb.checked::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
-  .queue-label { font-size: 13px; line-height: 1.5; }
-  .queue-label strong { color: #e8e8f0; }
-  .queue-label span { color: #888; }
-
-  /* Progress bar */
-  .progress-section { margin-bottom: 24px; }
-  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-bottom: 8px; }
-  .progress-bar { background: #2a2a3a; border-radius: 4px; height: 6px; overflow: hidden; }
-  .progress-fill { background: #00c896; height: 100%; border-radius: 4px; transition: width 0.4s ease; }
-
-  /* Footer */
-  .footer { text-align: center; padding: 24px 0; border-top: 1px solid #2a2a3a; }
-  .footer a { color: #3b82f6; text-decoration: none; margin: 0 12px; font-size: 13px; }
-  .footer a:hover { text-decoration: underline; }
-  .footer p { color: #555; font-size: 12px; margin-top: 8px; }
-
-  /* CTA Button */
-  .cta { display: inline-block; background: #3b82f6; color: white; padding: 10px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; margin: 0 8px; }
-  .cta:hover { background: #2563eb; }
-
-  @media (max-width: 768px) {
-    .stats { grid-template-columns: repeat(3, 1fr); }
+  body { background: #0f0f13; color: #e8e8f0; font-family: 'Inter', sans-serif; min-height: 100vh; }
+  a { color: #3b82f6; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .header { background: linear-gradient(135deg, #1a1a24 0%, #0f0f13 100%); border-bottom: 1px solid #2a2a3a; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .header-left h1 { font-size: 22px; font-weight: 800; color: #e8e8f0; letter-spacing: -0.3px; }
+  .header-left p { font-size: 13px; color: #6b6b8a; margin-top: 4px; }
+  .header-badge { background: #00c896; color: #0f0f13; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stats-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; padding: 24px 32px; }
+  .stat-tile { background: #1a1a24; border-radius: 12px; padding: 20px; border: 1px solid #2a2a3a; text-align: center; }
+  .stat-tile .value { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
+  .stat-tile .label { font-size: 11px; color: #6b6b8a; text-transform: uppercase; letter-spacing: 0.8px; }
+  .stat-green { color: #00c896; } .stat-amber { color: #f59e0b; } .stat-red { color: #ef4444; } .stat-blue { color: #3b82f6; } .stat-white { color: #e8e8f0; }
+  .potw { margin: 0 32px 24px; background: linear-gradient(135deg, #1a2a1a 0%, #1a1a24 100%); border: 1px solid #00c896; border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; gap: 20px; }
+  .potw-icon { font-size: 42px; }
+  .potw-label { font-size: 11px; font-weight: 600; color: #00c896; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .potw-name { font-size: 22px; font-weight: 800; color: #e8e8f0; }
+  .potw-win { font-size: 14px; color: #a8a8c0; margin-top: 6px; font-style: italic; }
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #6b6b8a; margin-bottom: 14px; padding: 0 32px; }
+  .status-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 32px 28px; }
+  .status-col { background: #1a1a24; border-radius: 14px; border: 1px solid #2a2a3a; overflow: hidden; }
+  .status-col-header { padding: 14px 18px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid #2a2a3a; display: flex; align-items: center; gap: 8px; }
+  .col-green .status-col-header { color: #00c896; background: rgba(0,200,150,0.05); }
+  .col-amber .status-col-header { color: #f59e0b; background: rgba(245,158,11,0.05); }
+  .col-red .status-col-header { color: #ef4444; background: rgba(239,68,68,0.05); }
+  .member-item { padding: 12px 18px; border-bottom: 1px solid #1f1f30; display: flex; flex-direction: column; gap: 3px; }
+  .member-item:last-child { border-bottom: none; }
+  .member-name { font-size: 14px; font-weight: 600; color: #e8e8f0; }
+  .member-sub { font-size: 11px; color: #6b6b8a; }
+  .member-win { font-size: 12px; color: #a8a8c0; margin-top: 2px; line-height: 1.4; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px; margin-left: 6px; }
+  .badge-yes { background: rgba(0,200,150,0.15); color: #00c896; }
+  .badge-no { background: rgba(239,68,68,0.15); color: #ef4444; }
+  .badge-na { background: rgba(107,107,138,0.2); color: #a8a8c0; }
+  .badge-wa { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .wins-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 0 32px 28px; }
+  .win-card { background: #1a1a24; border-radius: 12px; border: 1px solid #2a2a3a; padding: 16px; }
+  .win-card.featured { border-color: #00c896; background: linear-gradient(135deg, #1a2a1a 0%, #1a1a24 100%); }
+  .win-member { font-size: 12px; font-weight: 700; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .win-text { font-size: 13px; color: #c8c8e0; line-height: 1.5; }
+  .message-queue { margin: 0 32px 28px; background: #1a1a24; border-radius: 14px; border: 1px solid #2a2a3a; overflow: hidden; }
+  .mq-header { padding: 16px 20px; border-bottom: 1px solid #2a2a3a; display: flex; align-items: center; justify-content: space-between; }
+  .mq-header h3 { font-size: 13px; font-weight: 700; color: #e8e8f0; text-transform: uppercase; letter-spacing: 0.8px; }
+  .progress-wrap { display: flex; align-items: center; gap: 10px; }
+  .progress-bar-bg { width: 160px; height: 6px; background: #2a2a3a; border-radius: 3px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: #00c896; border-radius: 3px; transition: width 0.4s ease; }
+  .progress-label { font-size: 11px; color: #6b6b8a; }
+  .mq-item { padding: 14px 20px; border-bottom: 1px solid #1f1f30; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; transition: background 0.15s; }
+  .mq-item:last-child { border-bottom: none; }
+  .mq-item:hover { background: rgba(255,255,255,0.02); }
+  .mq-item.checked { opacity: 0.45; }
+  .mq-item.checked .mq-name { text-decoration: line-through; }
+  .mq-checkbox { width: 18px; height: 18px; border: 2px solid #3a3a5a; border-radius: 4px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .mq-item.checked .mq-checkbox { background: #00c896; border-color: #00c896; }
+  .mq-checkmark { color: #0f0f13; font-size: 11px; font-weight: 900; display: none; }
+  .mq-item.checked .mq-checkmark { display: block; }
+  .mq-name { font-size: 14px; font-weight: 600; color: #e8e8f0; }
+  .mq-detail { font-size: 12px; color: #6b6b8a; margin-top: 2px; }
+  .mq-tier { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px; margin-left: 8px; }
+  .tier-1 { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .tier-2 { background: rgba(107,107,138,0.15); color: #a8a8c0; }
+  .tier-3 { background: rgba(59,130,246,0.15); color: #3b82f6; }
+  .footer { padding: 24px 32px; border-top: 1px solid #2a2a3a; display: flex; align-items: center; justify-content: space-between; }
+  .footer p { font-size: 12px; color: #4a4a6a; }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 12px; color: #3b82f6; }
+  @media (max-width: 900px) {
+    .stats-strip { grid-template-columns: repeat(3, 1fr); }
     .status-board { grid-template-columns: 1fr; }
     .wins-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- Header -->
-  <div class="header">
-    <h1>📊 BXB C+C Weekly Scoreboard</h1>
-    <p>Commitment &amp; Consequence — Brotherhood × Business</p>
-    <div class="badge">Week of 14 April 2026 &nbsp;·&nbsp; W16 &nbsp;·&nbsp; Generated 24 Apr 2026</div>
+<div class="header">
+  <div class="header-left">
+    <h1>&#128202; BXB C+C Weekly Scoreboard</h1>
+    <p>Week of 21 April 2026 &nbsp;&middot;&nbsp; Generated 28 April 2026 &nbsp;&middot;&nbsp; W17</p>
   </div>
+  <span class="header-badge">Live Dashboard</span>
+</div>
 
-  <!-- Stats Strip -->
-  <div class="stats">
-    <div class="stat green">
-      <div class="num">5</div>
-      <div class="label">Submitted</div>
-    </div>
-    <div class="stat amber">
-      <div class="num">18</div>
-      <div class="label">Missed</div>
-    </div>
-    <div class="stat red">
-      <div class="num">4</div>
-      <div class="label">Needs Attention</div>
-    </div>
-    <div class="stat blue">
-      <div class="num">24</div>
-      <div class="label">Total Members</div>
-    </div>
-    <div class="stat purple">
-      <div class="num">21%</div>
-      <div class="label">Submission Rate</div>
-    </div>
+<div class="stats-strip">
+  <div class="stat-tile"><div class="value stat-white">15</div><div class="label">Total Members</div></div>
+  <div class="stat-tile"><div class="value stat-green">7</div><div class="label">Submitted</div></div>
+  <div class="stat-tile"><div class="value stat-amber">8</div><div class="label">Missed</div></div>
+  <div class="stat-tile"><div class="value stat-red">0</div><div class="label">Needs Attention</div></div>
+  <div class="stat-tile"><div class="value stat-blue">47%</div><div class="label">Submission Rate</div></div>
+</div>
+
+<div class="section-title">&#127942; Player of the Week</div>
+<div class="potw">
+  <div class="potw-icon">&#128081;</div>
+  <div>
+    <div class="potw-label">Player of the Week &mdash; W17</div>
+    <div class="potw-name">Brian Sweeney</div>
+    <div class="potw-win">&ldquo;Connected two royal families that wish to build a school together&rdquo;</div>
   </div>
+</div>
 
-  <!-- Player of the Week -->
-  <div class="potw">
-    <div class="potw-trophy">🏆</div>
-    <div>
-      <div class="potw-title">Player of the Week</div>
-      <div class="potw-name">Oli Middleton</div>
-      <div class="potw-win">"Back earning again" · 7 days under 7,000 calories · Naming a real commitment out loud. That's the standard.</div>
+<div class="section-title">&#128203; Member Status Board</div>
+<div class="status-board">
+  <div class="status-col col-green">
+    <div class="status-col-header">&#128994; Submitted (7)</div>
+    <div class="member-item">
+      <div class="member-name">Koen Geijtenbeek <span class="badge badge-yes">&#10003; Yes</span></div>
+      <div class="member-win">&#128176; Improved client relationship that started chaotically</div>
     </div>
-  </div>
-
-  <!-- Status Board -->
-  <div class="section-header"><span class="green"></span> Member Status</div>
-  <div class="status-board">
-    <!-- Submitted -->
-    <div class="status-col green-border">
-      <h3>✅ Submitted (5 members)</h3>
-      <div class="member-chip submitted"><div class="dot"></div>Eddie Aukino-Hughes<span class="member-tag">new</span></div>
-      <div class="member-chip submitted"><div class="dot"></div>Matthew Kaos<span class="member-tag">new</span></div>
-      <div class="member-chip submitted"><div class="dot"></div>🏆 Oli Middleton<span class="member-tag">monitor</span></div>
-      <div class="member-chip submitted"><div class="dot"></div>Keenan Bettany<span class="member-tag">new</span></div>
-      <div class="member-chip submitted"><div class="dot"></div>Danny Mcnamara<span class="member-tag">active</span></div>
+    <div class="member-item">
+      <div class="member-name">Miguel Alvarez <span class="badge badge-na">&#10134; N/A</span></div>
+      <div class="member-win">&#128176; More features for Project Santa</div>
     </div>
-    <!-- Missed -->
-    <div class="status-col amber-border">
-      <h3>🟡 Missed (18)</h3>
-      <div class="member-chip missed"><div class="dot"></div>Karsten Klingbeil</div>
-      <div class="member-chip missed"><div class="dot"></div>Gerhard Pappert</div>
-      <div class="member-chip missed"><div class="dot"></div>Paul Hennessy</div>
-      <div class="member-chip missed"><div class="dot"></div>Miguel Alvarez</div>
-      <div class="member-chip missed"><div class="dot"></div>Brian Sweeney</div>
-      <div class="member-chip missed"><div class="dot"></div>Andreas Kra</div>
-      <div class="member-chip missed"><div class="dot"></div>Mitch O'Callaghan</div>
-      <div class="member-chip missed"><div class="dot"></div>Gareth Kaatze</div>
-      <div class="member-chip missed"><div class="dot"></div>Koen Geytenbeek</div>
-      <div class="member-chip missed"><div class="dot"></div>Theo van Dort</div>
-      <div class="member-chip missed"><div class="dot"></div>Daniel Lawson</div>
-      <div class="member-chip missed"><div class="dot"></div>Dennis Paul Gilfeather</div>
-      <div class="member-chip missed"><div class="dot"></div>Cosmo Cosmin</div>
-      <div class="member-chip missed"><div class="dot"></div>Alex Feldman</div>
-      <div class="member-chip missed"><div class="dot"></div>Lawrence Linker</div>
-      <div class="member-chip missed"><div class="dot"></div>Alex Lehmann<span class="member-tag">monitor</span></div>
-      <div class="member-chip missed"><div class="dot"></div>Hayden Pribyl<span class="member-tag">monitor</span></div>
-      <div class="member-chip missed"><div class="dot"></div>Lennart Van Der Ziel<span class="member-tag">monitor</span></div>
+    <div class="member-item">
+      <div class="member-name">Keenan Bettany <span class="badge badge-yes">&#10003; Yes</span></div>
+      <div class="member-win">&#128176; 5 students, real systems, not waiting for perfection</div>
     </div>
-    <!-- Needs Attention -->
-    <div class="status-col red-border">
-      <h3>🔴 Needs Attention (4)</h3>
-      <div class="member-chip attention"><div class="dot"></div>Aaron Binning</div>
-      <div class="member-chip attention"><div class="dot"></div>Michael Dorang</div>
-      <div class="member-chip attention"><div class="dot"></div>James Kirk</div>
-      <div class="member-chip attention"><div class="dot"></div>Elijah Bagnall</div>
+    <div class="member-item">
+      <div class="member-name">Matthew Kaos <span class="badge badge-no">&#10007; No</span></div>
+      <div class="member-win">&#128170; Got back to running</div>
+    </div>
+    <div class="member-item">
+      <div class="member-name">Dennis Gilfeather <span class="badge badge-na">&#10134; N/A</span></div>
+      <div class="member-win">&#128176; 3 Psych-k retreats organised for Mind Tuning Bali</div>
+    </div>
+    <div class="member-item">
+      <div class="member-name">Oli Middleton <span class="badge badge-no">&#10007; No</span></div>
+      <div class="member-win">&#128170; &ldquo;Learned how far I've come, from how far I fell&rdquo;</div>
+    </div>
+    <div class="member-item">
+      <div class="member-name">Brian Sweeney &#128081; <span class="badge badge-na">&#10134; N/A</span></div>
+      <div class="member-win">&#128176; Connected two royal families to build a school</div>
     </div>
   </div>
 
-  <!-- Wins Grid -->
-  <div class="section-header"><span class="green"></span> Wins This Week</div>
-  <div class="wins-grid">
-    <div class="win-card featured">
-      <div class="win-type biz">🏆 Player of the Week · 💰 Business</div>
-      <div class="win-member">Oli Middleton</div>
-      <div class="win-text">Back earning again. Commitment: One day alcohol free (36hr fast consequence if missed).</div>
+  <div class="status-col col-amber">
+    <div class="status-col-header">&#128993; Missed (8)</div>
+    <div class="member-item">
+      <div class="member-name">Danny Mcnamara</div>
+      <div class="member-sub">Last: 20 Apr &nbsp;&middot;&nbsp; <span class="badge badge-na">1 wk</span> Monitor</div>
     </div>
-    <div class="win-card featured">
-      <div class="win-type personal">🏆 Player of the Week · 💪 Personal</div>
-      <div class="win-member">Oli Middleton</div>
-      <div class="win-text">7 days under 7,000 calories — intentional hardship, suffer on purpose.</div>
+    <div class="member-item">
+      <div class="member-name">Ali Dewji</div>
+      <div class="member-sub">Last: 20 Apr &nbsp;&middot;&nbsp; <span class="badge badge-na">1 wk</span> Monitor</div>
     </div>
-    <div class="win-card">
-      <div class="win-type biz">💰 Business/Wealth</div>
-      <div class="win-member">Eddie Aukino-Hughes</div>
-      <div class="win-text">Registration forms complete for 8-week fitness challenge. Pulled the trigger after weeks of delay.</div>
+    <div class="member-item">
+      <div class="member-name">Eddie Aukino-Hughes</div>
+      <div class="member-sub">Last: 19 Apr &nbsp;&middot;&nbsp; <span class="badge badge-na">1 wk</span> Monitor</div>
     </div>
-    <div class="win-card">
-      <div class="win-type personal">💪 Personal/Health</div>
-      <div class="win-member">Eddie Aukino-Hughes</div>
-      <div class="win-text">Less fear of showing up on social media for his brand.</div>
+    <div class="member-item">
+      <div class="member-name">Daniel Lawson</div>
+      <div class="member-sub">Last: 13 Apr &nbsp;&middot;&nbsp; <span class="badge badge-wa">2 wks</span> WhatsApp</div>
     </div>
-    <div class="win-card">
-      <div class="win-type biz">💰 Business/Wealth</div>
-      <div class="win-member">Matthew Kaos</div>
-      <div class="win-text">Carried out first client call for BAM. First call is always the hardest.</div>
+    <div class="member-item">
+      <div class="member-name">Mitchell O'Callaghan</div>
+      <div class="member-sub">Last: 13 Apr &nbsp;&middot;&nbsp; <span class="badge badge-wa">2 wks</span> WhatsApp</div>
     </div>
-    <div class="win-card">
-      <div class="win-type personal">💪 Personal/Health</div>
-      <div class="win-member">Matthew Kaos</div>
-      <div class="win-text">Handled a reactive situation with composure — would have previously got angry.</div>
+    <div class="member-item">
+      <div class="member-name">Alex Feldman</div>
+      <div class="member-sub">Last: 12 Apr &nbsp;&middot;&nbsp; <span class="badge badge-wa">2 wks</span> WhatsApp</div>
     </div>
-    <div class="win-card">
-      <div class="win-type biz">💰 Business/Wealth</div>
-      <div class="win-member">Keenan Bettany</div>
-      <div class="win-text">Working with 8 people for free in exchange for testimonials. Smart proof-of-concept move.</div>
+    <div class="member-item">
+      <div class="member-name">Andreas Krassnitzer</div>
+      <div class="member-sub">Last: 12 Apr &nbsp;&middot;&nbsp; <span class="badge badge-wa">2 wks</span> WhatsApp</div>
     </div>
-    <div class="win-card">
-      <div class="win-type personal">💪 Personal/Health</div>
-      <div class="win-member">Keenan Bettany</div>
-      <div class="win-text">Intermittent fasting — eating first meal at noon every day.</div>
-    </div>
-    <div class="win-card">
-      <div class="win-type biz">💰 Business/Wealth</div>
-      <div class="win-member">Danny Mcnamara</div>
-      <div class="win-text">First client call went great. Commitment: Double outreach and conversations.</div>
-    </div>
-    <div class="win-card">
-      <div class="win-type personal">💪 Personal/Health</div>
-      <div class="win-member">Danny Mcnamara</div>
-      <div class="win-text">Inspiring his family to improve their health and lives.</div>
+    <div class="member-item">
+      <div class="member-name">Aaron Binning</div>
+      <div class="member-sub">Last: 7 Apr &nbsp;&middot;&nbsp; <span class="badge badge-wa">2 wks</span> WhatsApp</div>
     </div>
   </div>
 
-  <!-- Leverage Table -->
-  <div class="section-header"><span class="blue"></span> Leverage — Support Requests</div>
-  <table class="leverage-table">
-    <thead>
-      <tr>
-        <th>Member</th>
-        <th>Support Needed</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Eddie Aukino-Hughes</td>
-        <td>Looking for other online fitness coaches in the Brotherhood to connect with</td>
-      </tr>
-      <tr>
-        <td>Keenan Bettany</td>
-        <td>Intro to anyone who has run a successful coaching business</td>
-      </tr>
-      <tr>
-        <td>Matthew Kaos</td>
-        <td>Will reach out directly to Ryan, Ali, Julian</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Message Queue -->
-  <div class="message-queue">
-    <h3>📋 Matt's Message Queue</h3>
-    <div class="progress-section">
-      <div class="progress-label"><span>Tasks completed</span><span id="progress-text">0 / 5</span></div>
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
-    </div>
-    <div class="queue-item">
-      <div class="queue-cb" onclick="toggleCheck(this)"></div>
-      <div class="queue-label"><strong>🏆 CELEBRATE in group</strong> — <span>"Player of the Week → Oli Middleton. Back earning, 7-day calorie discipline, naming a real commitment out loud. That's what this Brotherhood is about. 🔥"</span></div>
-    </div>
-    <div class="queue-item">
-      <div class="queue-cb" onclick="toggleCheck(this)"></div>
-      <div class="queue-label"><strong>✅ CELEBRATE</strong> — <span>Big up Danny's first client call, Eddie's challenge going live, Keenan's 8 free clients for testimonials</span></div>
-    </div>
-    <div class="queue-item">
-      <div class="queue-cb" onclick="toggleCheck(this)"></div>
-      <div class="queue-label"><strong>📩 WHATSAPP NUDGE × 18</strong> — <span>"Hey bro, didn't see your C+C this week. 2 minutes to submit → [link]. Keep the streak alive."</span></div>
-    </div>
-    <div class="queue-item">
-      <div class="queue-cb" onclick="toggleCheck(this)"></div>
-      <div class="queue-label"><strong>🚨 ESCALATE TO RYAN/ALI</strong> — <span>Aaron Binning, Michael Dorang, James Kirk, Elijah Bagnall — 3+ weeks dark. Personal outreach, not a group message.</span></div>
-    </div>
-    <div class="queue-item">
-      <div class="queue-cb" onclick="toggleCheck(this)"></div>
-      <div class="queue-label"><strong>🤝 LEVERAGE</strong> — <span>Connect Eddie with online fitness coaches in BXB | Find Keenan a successful coaching founder to speak with</span></div>
+  <div class="status-col col-red">
+    <div class="status-col-header">&#128308; Needs Attention (0)</div>
+    <div class="member-item" style="text-align:center; padding: 24px 18px;">
+      <div class="member-sub" style="color: #4a4a6a; font-style: italic;">No escalations this week &#127881;</div>
     </div>
   </div>
+</div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <div>
-      <a href="https://ryanh1512.github.io/cc-dashboard/" class="cta">🌐 Live Scoreboard</a>
-      <a href="https://docs.google.com/spreadsheets/d/1usTTBGAndRdWwmViNxO9kCRoyGoxIKpNV6RO05aIF_w/edit?gid=93850652">📋 Client Master Sheet</a>
-    </div>
-    <p style="margin-top:16px;">BXB C+C Dashboard · Week of 14 April 2026 · Generated 24 Apr 2026</p>
+<div class="section-title">&#127942; Wins Round-Up &mdash; W17</div>
+<div class="wins-grid">
+  <div class="win-card featured">
+    <div class="win-member">&#128081; Brian Sweeney &nbsp; &#128176; Business/Wealth</div>
+    <div class="win-text">Connected two royal families that wish to build a school together</div>
   </div>
+  <div class="win-card">
+    <div class="win-member">Keenan Bettany &nbsp; &#128176; Business/Wealth</div>
+    <div class="win-text">Working with 5 students building real personalised systems. Building as I go &mdash; not waiting for perfection.</div>
+  </div>
+  <div class="win-card">
+    <div class="win-member">Dennis Gilfeather &nbsp; &#128176; Business/Wealth</div>
+    <div class="win-text">Organised 3 Psych-k retreats for Mind Tuning Bali</div>
+  </div>
+  <div class="win-card">
+    <div class="win-member">Koen Geijtenbeek &nbsp; &#128176; Business/Wealth</div>
+    <div class="win-text">Improved the relationship with a client that started off chaotically</div>
+  </div>
+  <div class="win-card">
+    <div class="win-member">Miguel Alvarez &nbsp; &#128176; Business/Wealth</div>
+    <div class="win-text">Developed more features for Project Santa</div>
+  </div>
+  <div class="win-card">
+    <div class="win-member">Keenan Bettany &nbsp; &#128170; Personal/Health</div>
+    <div class="win-text">Perspective on life has changed since coming to Bali. The material things I once valued no longer hold space.</div>
+  </div>
+  <div class="win-card">
+    <div class="win-member">Koen Geijtenbeek &nbsp; &#128170; Personal/Health</div>
+    <div class="win-text">Changed gym routine for better rehab + met up with friends, avoided self-isolation despite a hectic workweek</div>
+  </div>
+  <div class="win-card">
+    <div class="win-member">Oli Middleton &nbsp; &#128170; Personal/Health</div>
+    <div class="win-text">Learned how far I've come, from how far I fell</div>
+  </div>
+</div>
 
+<div class="section-title">&#128232; Matt's Message Queue</div>
+<div class="message-queue">
+  <div class="mq-header">
+    <h3>Action Checklist</h3>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+      <span class="progress-label" id="progressLabel">0 / 10 done</span>
+    </div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Daniel Lawson <span class="mq-tier tier-1">Tier 1 &mdash; WhatsApp</span></div>
+    <div class="mq-detail">Missed 2 weeks (last: 13 Apr). "Hey Daniel, noticed you've missed the last couple of weeks. All good? Let's get you back on track."</div></div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Mitchell O'Callaghan <span class="mq-tier tier-1">Tier 1 &mdash; WhatsApp</span></div>
+    <div class="mq-detail">Missed 2 weeks (last: 13 Apr). Re-engage and check in.</div></div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Alex Feldman <span class="mq-tier tier-1">Tier 1 &mdash; WhatsApp</span></div>
+    <div class="mq-detail">Missed 2 weeks (last: 12 Apr). Re-engage and check in.</div></div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Andreas Krassnitzer <span class="mq-tier tier-1">Tier 1 &mdash; WhatsApp</span></div>
+    <div class="mq-detail">Missed 2 weeks (last: 12 Apr). Re-engage and check in.</div></div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Aaron Binning <span class="mq-tier tier-1">Tier 1 &mdash; WhatsApp</span></div>
+    <div class="mq-detail">Missed 2 weeks (last: 7 Apr). Re-engage and check in.</div></div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Danny Mcnamara <span class="mq-tier tier-2">Tier 2 &mdash; Monitor</span></div>
+    <div class="mq-detail">Missed 1 week (last: 20 Apr). Watch for next submission.</div></div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Ali Dewji <span class="mq-tier tier-2">Tier 2 &mdash; Monitor</span></div>
+    <div class="mq-detail">Missed 1 week (last: 20 Apr). Watch for next submission.</div></div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Eddie Aukino-Hughes <span class="mq-tier tier-2">Tier 2 &mdash; Monitor</span></div>
+    <div class="mq-detail">Missed 1 week (last: 19 Apr). Watch for next submission.</div></div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Oli Middleton &mdash; LEVERAGE <span class="mq-tier tier-3">Tier 3 &mdash; Action</span></div>
+    <div class="mq-detail">Requested extra accountability from Matt/Ali this week. Action now.</div></div>
+  </div>
+  <div class="mq-item" onclick="toggleItem(this)">
+    <div class="mq-checkbox"><span class="mq-checkmark">&#10003;</span></div>
+    <div><div class="mq-name">Matthew Kaos &mdash; LEVERAGE <span class="mq-tier tier-3">Tier 3 &mdash; Action</span></div>
+    <div class="mq-detail">Working with Julian this week. Check in on progress mid-week.</div></div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>BXB C+C Accountability System &nbsp;&middot;&nbsp; Week of 21 April 2026 &nbsp;&middot;&nbsp; Auto-generated 28 Apr 2026</p>
+  <div class="footer-links">
+    <a href="https://www.notion.so/35084a88157e81a0b809e1d01c66083e" target="_blank">&#128203; Notion Dashboard</a>
+    <a href="https://docs.google.com/spreadsheets/d/1usTTBGAndRdWwmViNxO9kCRoyGoxIKpNV6RO05aIF_w/edit?gid=93850652" target="_blank">&#128202; Client Master Sheet</a>
+  </div>
 </div>
 
 <script>
-function toggleCheck(el) {
-  el.classList.toggle('checked');
+  var TOTAL = 10;
+  function updateProgress() {
+    var checked = document.querySelectorAll('.mq-item.checked').length;
+    var pct = Math.round((checked / TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = checked + ' / ' + TOTAL + ' done';
+  }
+  function toggleItem(el) { el.classList.toggle('checked'); updateProgress(); }
   updateProgress();
-}
-function updateProgress() {
-  const items = document.querySelectorAll('.queue-cb');
-  const checked = document.querySelectorAll('.queue-cb.checked').length;
-  const total = items.length;
-  document.getElementById('progress-text').textContent = checked + ' / ' + total;
-  document.getElementById('progress-fill').style.width = (checked/total*100) + '%';
-}
 </script>
 </body>
 </html>
